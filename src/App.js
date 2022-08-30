@@ -1,9 +1,14 @@
-import React, {useState} from 'react';
-import axios from "axios";
-import NewsList from "./components/NewsList";
+import React from 'react';
+import {Route, Routes} from "react-router-dom";
+import NewsPage from "./pages/NewsPage";
 
 const App = () => {
-  return <NewsList />
+    return (
+            <Routes>
+                <Route path="/:category?" element={NewsPage} />;
+            </Routes>
+
+    )
 };
 
 export default App;

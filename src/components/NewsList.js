@@ -18,25 +18,26 @@ const NewsListBlock = styled.div`
 `;
 
 
-const NewsList = () =>{
+const NewsList = ({category}) =>{
     const [articles, setArticles] = useState(null);
-    const [loading, setloading] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
-            setloading(true);
+            setLoading(true);
             try {
+                const query = category === 'all' ? '':`&category=${category}`;
                 const response = await axios.get(
-                    'https://newsapi.org/v2/top-headlines?country=kr&category=sports&apiKey=a10c3ee23e384b8f98d483f593da0a80'
+                    `https://newsapi.org/v2/top-headlines?country=kr${query}&apiKey=a10c3ee23e384b8f98d483f593da0a80`
                 );
                 setArticles(response.data.articles);
             }catch(e){
                 console.log(e);
             }
-            setloading(false);
+            setLoading(false);
         };
         fetchData();
-    }, []);
+    }, [category]);
 
     if (loading) {
         return <NewsListBlock>대기 중...</NewsListBlock>;
